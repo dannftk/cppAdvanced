@@ -1,0 +1,12 @@
+<snippet>
+	<name>Struct Declaration</name>
+	<content><![CDATA[struct ${1:name}
+{
+	$1(${2:/* args */}) ${3:noexcept} ${4:= default;}
+	~$1() ${5:noexcept} ${6:= default;}
+
+	${7:/* data */}
+};]]></content>
+	<tabTrigger>str_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

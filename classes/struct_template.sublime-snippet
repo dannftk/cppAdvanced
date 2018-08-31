@@ -1,0 +1,13 @@
+<snippet>
+	<description>Templated Struct Declaration</description>
+	<content><![CDATA[template<typename ${1:T}>
+struct ${2:name}
+{
+	$2(${3:/* args */}) ${4:noexcept} ${5:= default;}
+	~$2() ${6:noexcept} = ${7:default;}
+
+	${8:/* data */}
+};]]></content>
+	<tabTrigger>strt_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

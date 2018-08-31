@@ -1,0 +1,9 @@
+<snippet>
+	<description>Do While Loop</description>
+	<content><![CDATA[do
+{
+	$0
+} while (${2:/* condition */});]]></content>
+	<tabTrigger>dowl_</tabTrigger>
+	<scope>source.c, source.objc, source.c++, source.objc++</scope>
+</snippet>

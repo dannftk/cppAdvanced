@@ -1,0 +1,9 @@
+<snippet>
+	<description>Constexpr Function Definition</description>
+	<content><![CDATA[constexpr ${1:type} ${2:function_name}(${3:/* args */})
+{
+	${0:/* TODO: implementation required */}
+}]]></content>
+	<tabTrigger>funcexpr_</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

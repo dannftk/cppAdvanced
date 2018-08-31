@@ -1,0 +1,9 @@
+<snippet>
+	<description>Regular Function Definition</description>
+	<content><![CDATA[${1:void} ${2:function_name}(${3:/* args */})
+{
+	${0:/* TODO: implementation required */}
+}]]></content>
+	<tabTrigger>fun_</tabTrigger>
+	<scope>source.c, source.objc, source.c++, source.objc++</scope>
+</snippet>

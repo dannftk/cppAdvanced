@@ -1,0 +1,10 @@
+<snippet>
+	<description>Templated Function Definition</description>
+	<content><![CDATA[template<typename ${1:T}>
+${2:return_type} ${3:function_name}(${4:/* args */}) noexcept
+{
+	${0:/* TODO: implementation required */}
+}]]></content>
+	<tabTrigger>funt_</tabTrigger>
+	<scope>source.c++</scope>
+</snippet>

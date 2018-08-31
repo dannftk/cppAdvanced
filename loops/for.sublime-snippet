@@ -1,0 +1,9 @@
+<snippet>
+	<description>For Loop</description>
+	<content><![CDATA[for (${1:auto} ${2:i} = ${3:init_value}; $2 < ${4:end_value}; ${5:++$2})
+{
+	${0:/* TODO: loop implementation required */}
+}]]></content>
+	<tabTrigger>for_</tabTrigger>
+	<scope>source.c, source.objc, source.c++, source.objc++</scope>
+</snippet>

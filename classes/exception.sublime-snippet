@@ -1,0 +1,12 @@
+<snippet>
+	<description>Exception Declaration</description>
+	<content><![CDATA[class ${1:name} : public ${2:std::runtime_error}
+{
+public:
+	${1/(\w+).*/$1/}(std::string const& errstr): ${2:std::runtime_error}(${3:errstr}) {}
+private:
+	${4/* data */}
+};]]></content>
+	<tabTrigger>exc_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

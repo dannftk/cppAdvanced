@@ -1,0 +1,9 @@
+<snippet>
+	<description>Range-Based For Loop</description>
+	<content><![CDATA[for (auto&& ${1:item} : ${2:container})
+{
+	${0:/* TODO: loop implementation required */}
+}]]></content>
+	<tabTrigger>forr_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

@@ -1,0 +1,6 @@
+<snippet>
+	<description>#include "…"</description>
+	<content><![CDATA[#include "${1:include}"]]></content>
+	<tabTrigger>inc_</tabTrigger>
+	<scope>source.c, source.objc, source.c++, source.objc++</scope>
+</snippet>

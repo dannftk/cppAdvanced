@@ -1,0 +1,14 @@
+<snippet>
+	<description>'switch' statement</description>
+	<content><![CDATA[switch (${1:/* switcher */})
+{
+	case:
+		${2:/* TODO: implementation required */}
+		break;
+	default:
+		${3:/* TODO: implementation required */}
+		break;
+}]]></content>
+	<tabTrigger>sw_</tabTrigger>
+	<scope>source.c, source.objc, source.c++, source.objc++</scope>
+</snippet>

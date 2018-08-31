@@ -1,0 +1,9 @@
+<snippet>
+	<description>Regular Method Definition</description>
+	<content><![CDATA[${1:void} ${2:function_name}(${3:/* args */}) ${4:const} ${5:noexcept}
+{
+	${0:/* TODO: implementation required */}
+}]]></content>
+	<tabTrigger>meth_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

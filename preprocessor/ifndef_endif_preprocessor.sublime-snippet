@@ -1,0 +1,8 @@
+<snippet>
+	<description>#ifndef … #endif</description>
+	<content><![CDATA[#ifndef ${1:SYMBOL}}
+$0
+#endif]]></content>
+	<tabTrigger>prifndef_</tabTrigger>
+	<scope>source.c, source.c++, source.objc, source.objc++</scope>
+</snippet>

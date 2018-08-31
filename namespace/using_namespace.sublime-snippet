@@ -1,0 +1,6 @@
+<snippet>
+	<description>Namespace</description>
+	<content><![CDATA[using namespace ${1:name};]]></content>
+	<tabTrigger>unsp_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

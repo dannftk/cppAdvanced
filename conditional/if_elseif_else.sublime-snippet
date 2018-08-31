@@ -1,0 +1,17 @@
+<snippet>
+	<description>'if else if else' condition</description>
+	<content><![CDATA[if (${1:/* condition */})
+{
+	${2:/* TODO: 'if' branch implementation required */}
+}
+else if (${3:/* condition */})
+{
+	${4:/* TODO: 'if else if' branch implementation required */}
+}
+else
+{
+	${5:/* TODO: 'if else if else' branch implementation required */}
+}]]></content>
+	<tabTrigger>ifelif_</tabTrigger>
+	<scope>source.c, source.objc, source.c++, source.objc++</scope>
+</snippet>

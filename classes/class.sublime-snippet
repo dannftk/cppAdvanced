@@ -1,0 +1,13 @@
+<snippet>
+	<description>Class Declaration</description>
+	<content><![CDATA[class ${1:name}
+{
+public:
+	$1(${2:/* args */}) ${3:noexcept} ${4:= default;}
+	~$1() ${5:noexcept} ${6:= default;}
+private:
+	${7:/* data */}
+};]]></content>
+	<tabTrigger>cl_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

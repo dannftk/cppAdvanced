@@ -1,0 +1,14 @@
+<snippet>
+	<description>Templated Class Declaration</description>
+	<content><![CDATA[template<typename ${1:T}>
+class ${2:name}
+{
+public:
+	$2(${3:/* args */}) ${4:noexcept} ${5:= default;}
+	~$2() ${6:noexcept} = ${7:default;}
+private:
+	${8:/* data */}
+};]]></content>
+	<tabTrigger>clt_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

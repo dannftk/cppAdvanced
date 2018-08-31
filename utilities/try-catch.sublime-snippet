@@ -1,0 +1,13 @@
+<snippet>
+	<description>try catch block</description>
+	<content><![CDATA[try
+{
+	${1:/* TODO: implementation required */}
+}
+catch(${2:std::exception const &ex})
+{
+	${0:/* TODO: implementation required */}
+}]]></content>
+	<tabTrigger>try_</tabTrigger>
+	<scope>source.c++, source.objc++, source.c++11</scope>
+</snippet>

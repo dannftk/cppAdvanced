@@ -1,0 +1,10 @@
+{
+	"scope": "source.cpp, source.c++",
+	"completions":
+	[
+		{"trigger": "rt_\treturn statement",    "contents": "return ${1:/* return expression */};"},
+		{"trigger": "nex_\tnoexcept statement", "contents": "noexcept"},
+		{"trigger": "expl_\texplicit statement", "contents": "explicit"},
+		{"trigger": "defl_\tdefault statement",  "contents": "default"}
+	]
+}

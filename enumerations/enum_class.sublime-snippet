@@ -1,0 +1,9 @@
+<snippet>
+	<description>Enumeration Class Declaration</description>
+	<content><![CDATA[enum class ${1:name}
+{
+	$0
+};]]></content>
+	<tabTrigger>en_cl_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>

@@ -1,0 +1,9 @@
+<snippet>
+	<description>Virtual Regular Method Definition</description>
+	<content><![CDATA[${1:virtual} ${2:void} ${3:function_name}(${4:/* args */}) ${5:const} ${6:override} ${7:noexcept}
+{
+	${0:/* TODO: implementation required */}
+}]]></content>
+	<tabTrigger>methv_</tabTrigger>
+	<scope>source.c++, source.objc++</scope>
+</snippet>
