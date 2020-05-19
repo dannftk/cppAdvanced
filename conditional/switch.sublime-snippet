@@ -3,10 +3,10 @@
 	<content><![CDATA[switch (${1:/* switcher */})
 {
 	case:
-		${2:/* TODO: implementation required */}
+		${2:// @todo implementation required}
 		break;
 	default:
-		${3:/* TODO: implementation required */}
+		${3:// @todo implementation required}
 		break;
 }]]></content>
 	<tabTrigger>sw_</tabTrigger>

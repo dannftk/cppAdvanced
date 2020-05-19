@@ -2,11 +2,11 @@
 	<description>'if else' condition</description>
 	<content><![CDATA[if (${1:/* condition */})
 {
-	${2:/* TODO: 'if' branch implementation required */}
+	${2:// @todo implementation required}
 }
 else
 {
-	${3:/* TODO: 'else' branch implementation required */}
+	${3:// @todo implementation required}
 }]]></content>
 	<tabTrigger>ifel_</tabTrigger>
 	<scope>source.c, source.objc, source.c++, source.objc++</scope>

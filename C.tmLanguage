@@ -2,1407 +2,714 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<!-------------------------------------------
-	File Type Support
-------------------------------------------->
-	<key>fileTypes</key>
-	<array>
-<!-------------------------------------------
-	C File Type Support
-------------------------------------------->
-		<string>c</string>
-		<string>h</string>
-<!-------------------------------------------
-	C++ File Type Support
-------------------------------------------->
-		<string>c</string>
-		<string>h</string>
-	</array>
-	<key>firstLineMatch</key>
-	<string>-[*]-( Mode:)? C -[*]-</string>
-	<key>foldingStartMarker</key>
-	<string>(?x)
-		 /\*\*(?!\*)
-		|^(?![^{]*?//|[^{]*?/\*(?!.*?\*/.*?\{)).*?\{\s*($|//|/\*(?!.*?\*/.*\S))
-	</string>
-	<key>foldingStopMarker</key>
-	<string>(?&lt;!\*)\*\*/|^\s*\}</string>
-	<key>keyEquivalent</key>
-	<string>^~C</string>
-<!-----------------------------------------
-	Display Syntax As
-------------------------------------------->
-	<key>name</key>
-	<string>C</string>
-	<key>patterns</key>
-	<array>
-<!---------------------------------------------------
-	Includes (from repositories) - CCpp
---------------------------------------------------->
-		<dict>
-			<key>include</key>
-			<string>#comments</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#preprocessor-rule-enabled</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#preprocessor-rule-disabled</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#preprocessor-rule-other</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#pragma-mark</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#disabled</string>
-		</dict>
-<!----------------------------------------
-	Raw String (exception)- CCpp
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>(R|Ru|RU|uR|UR)(\"\+\*\()\.*</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>prefix</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>begin</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(\)\+\*\")</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>end</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>raw.string.ccpp</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#comments</string>
-				</dict>
-			</array>
-		</dict>
-<!----------------------------------------
-	Raw String - CCpp
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>(R|Ru|RU|uR|UR)(\"\()\.*</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>prefix</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>begin</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(\)\")</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>end</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>raw.string.ccpp</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#comments</string>
-				</dict>
-			</array>
-		</dict>
-<!----------------------------------------
-	Member Initializer - CCpp
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>(\:)\s*(\w+\(\w+\))+</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>begin</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>variable</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>\{</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>open.curly.bracket.block</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>member.initializer</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#comments</string>
-				</dict>
-			</array>
-		</dict>
-<!--------------------------------------
-	Keyword Control - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(break|case|continue|default|do|else|for|goto|if|_Pragma|return|switch|while)\b</string>
-			<key>name</key>
-			<string>keyword.control.c</string>
-		</dict>
-<!--------------------------------------
-	Keyword Control - C++
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(catch|operator|try|throw|using|namespace)\b</string>
-			<key>name</key>
-			<string>keyword.control.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\bdelete\b(\s*\[\])?|\bnew\b(?!])</string>
-			<key>name</key>
-			<string>keyword.control.c++</string>
-		</dict>
-<!--------------------------------------
-	Keyword Operator - C++
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(and|and_eq|bitand|bitor|compl|not|not_eq|or|or_eq|typeid|xor|xor_eq)\b</string>
-			<key>name</key>
-			<string>keyword.operator.c++</string>
-		</dict>
-<!--------------------------------------
-	Keyword Operator Cast - C++
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(const_cast|dynamic_cast|reinterpret_cast|static_cast)\b\s*</string>
-			<key>name</key>
-			<string>keyword.operator.cast.c++</string>
-		</dict>
-<!--------------------------------------
-	Storage Type - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(asm|__asm__|auto|bool|_Bool|char|_Complex|double|enum|float|_Imaginary|string|int|long|short|signed|struct|typedef|union|unsigned|void)\b</string>
-			<key>name</key>
-			<string>storage.type.c</string>
-		</dict>
-<!--------------------------------------
-	Storage Type - C++
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(class|wchar_t|nullptr_t)\b</string>
-			<key>name</key>
-			<string>storage.type.c++</string>
-		</dict>
-<!-----------------------------------------
-	Storage Type - C++11
-------------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(size_t|int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|char16_t|char32_t)\b</string>
-			<key>name</key>
-			<string>storage.type.c++11</string>
-		</dict>
-<!--------------------------------------
-	Storage Type Template - C++
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\btemplate\b\s*</string>
-			<key>name</key>
-			<string>storage.type.template.c++</string>
-		</dict>
-<!--------------------------------------
-	Storage Modifier - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(const|extern|register|restrict|static|volatile|inline)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c</string>
-		</dict>
-<!--------------------------------------
-	Storage Modifier - C++
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(export|mutable|typename)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(friend|explicit|virtual)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(private|protected|public)\b\s*\:</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(private|protected|public)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(export|mutable|typename)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-<!-----------------------------------------
-	Storage Modifier - C++11
-------------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(constexpr|auto)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(override|final|noexcept)\b</string>
-			<key>name</key>
-			<string>storage.modifier.c++</string>
-		</dict>
-
-<!-----------------------------------------------
-	Constant Other Variable Mac Classic C - C
------------------------------------------------->
-		<dict>
-			<key>comment</key>
-			<string>common C constant naming idiom -- kConstantVariable</string>
-			<key>match</key>
-			<string>\bk[A-Z]\w*\b</string>
-			<key>name</key>
-			<string>constant.other.variable.mac-classic.c</string>
-		</dict>
-<!------------------------------------------------------
-	Variable Other Readwrite Global Mac Classic C - C
-------------------------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\bg[A-Z]\w*\b</string>
-			<key>name</key>
-			<string>variable.other.readwrite.global.mac-classic.c</string>
-		</dict>
-<!---------------------------------------------------------
-	Variable Other Readwrite Static Mac Classic C - C
---------------------------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\bs[A-Z]\w*\b</string>
-			<key>name</key>
-			<string>variable.other.readwrite.static.mac-classic.c</string>
-		</dict>
-<!-------------------------------------------
-	Variable Other Readwrite Member - C++
---------------------------------------------->
-		<dict>
-			<key>comment</key>
-			<string>common C++ instance var naming idiom -- fMemberName</string>
-			<key>match</key>
-			<string>\b(f|m)[A-Z]\w*\b</string>
-			<key>name</key>
-			<string>variable.other.readwrite.member.c++</string>
-		</dict>
-<!----------------------------
-	Variable Language - C++
------------------------------>
-		<dict>
-			<key>match</key>
-			<string>\bthis\b</string>
-			<key>name</key>
-			<string>variable.language.c++</string>
-		</dict>
-<!--------------------------------------
-	Constant Language - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(NULL|true|false|TRUE|FALSE)\b</string>
-			<key>name</key>
-			<string>constant.language.c</string>
-		</dict>
-<!-----------------------------
-	Constant Language - C++
--------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\bnullptr\b</string>
-			<key>name</key>
-			<string>constant.language.c++</string>
-		</dict>
-<!--------------------------------------
-	Constant Numeric - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\b</string>
-			<key>name</key>
-			<string>constant.numeric.c</string>
-		</dict>
-<!--------------------------------------
-	Support Type System Types - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|qaddr_t|caddr_t|daddr_t|dev_t|fixpt_t|blkcnt_t|blksize_t|gid_t|in_addr_t|in_port_t|ino_t|key_t|mode_t|nlink_t|id_t|pid_t|off_t|segsz_t|swblk_t|uid_t|id_t|clock_t|size_t|ssize_t|time_t|useconds_t|suseconds_t)\b</string>
-			<key>name</key>
-			<string>support.type.sys-types.c</string>
-		</dict>
-<!--------------------------------------
-	Support Type POSIX thread- C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(pthread_attr_t|pthread_cond_t|pthread_condattr_t|pthread_mutex_t|pthread_mutexattr_t|pthread_once_t|pthread_rwlock_t|pthread_rwlockattr_t|pthread_t|pthread_key_t)\b</string>
-			<key>name</key>
-			<string>support.type.pthread.c</string>
-		</dict>
-<!--------------------------------------
-	Standard Input Support - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|int_least8_t|int_least16_t|int_least32_t|int_least64_t|uint_least8_t|uint_least16_t|uint_least32_t|uint_least64_t|int_fast8_t|int_fast16_t|int_fast32_t|int_fast64_t|uint_fast8_t|uint_fast16_t|uint_fast32_t|uint_fast64_t|intptr_t|uintptr_t|intmax_t|intmax_t|uintmax_t|uintmax_t)\b</string>
-			<key>name</key>
-			<string>support.type.stdint.c</string>
-		</dict>
-<!--------------------------------------
-	Constant Mac Classic C - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(noErr|kNilOptions|kInvalidID|kVariableLengthArray)\b</string>
-			<key>name</key>
-			<string>support.constant.mac-classic.c</string>
-		</dict>
-<!--------------------------------------
-	Mac Classic C System Support - C
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\b(AbsoluteTime|Boolean|Byte|ByteCount|ByteOffset|BytePtr|CompTimeValue|ConstLogicalAddress|ConstStrFileNameParam|ConstStringPtr|Duration|Fixed|FixedPtr|Float32|Float32Point|Float64|Float80|Float96|FourCharCode|Fract|FractPtr|Handle|ItemCount|LogicalAddress|OptionBits|OSErr|OSStatus|OSType|OSTypePtr|PhysicalAddress|ProcessSerialNumber|ProcessSerialNumberPtr|ProcHandle|Ptr|ResType|ResTypePtr|ShortFixed|ShortFixedPtr|SignedByte|SInt16|SInt32|SInt64|SInt8|Size|StrFileName|StringHandle|StringPtr|TimeBase|TimeRecord|TimeScale|TimeValue|TimeValue64|UInt16|UInt32|UInt64|UInt8|UniChar|UniCharCount|UniCharCountPtr|UniCharPtr|UnicodeScalarValue|UniversalProcHandle|UniversalProcPtr|UnsignedFixed|UnsignedFixedPtr|UnsignedWide|UTF16Char|UTF32Char|UTF8Char)\b</string>
-			<key>name</key>
-			<string>support.type.mac-classic.c</string>
-		</dict>
-
-<!---------------------------------------------------
-	Pointer - CCpp
------------------------------------------------------>
-		<dict>
-			<key>match</key>
-			<string>\w+\:\:\w+\*</string>
-			<key>name</key>
-			<string>pointer.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\*\(\w+\)</string>
-			<key>name</key>
-			<string>pointer.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\(\w+\)\*</string>
-			<key>name</key>
-			<string>pointer.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\w+\*</string>
-			<key>name</key>
-			<string>pointer.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\*\w+</string>
-			<key>name</key>
-			<string>pointer.ccpp</string>
-		</dict>
-<!---------------------------------------------------
-	Address - CCpp
------------------------------------------------------>
-		<dict>
-			<key>match</key>
-			<string>\&\w+</string>
-			<key>name</key>
-			<string>address.ccpp</string>
-		</dict>
-<!---------------------------------------------------
-	Array - CCpp
------------------------------------------------------>
-		<dict>
-			<key>match</key>
-			<string>\w+(?=\[)</string>
-			<key>name</key>
-			<string>array.ccpp</string>
-		</dict>
-<!---------------------------------------------------
-	Function Support - CCpp
------------------------------------------------------>
-		<dict>
-			<key>match</key>
-			<string>(?&lt;=class|wchar_t|nullptr_t)\s\w+</string>
-			<key>name</key>
-			<string>meta.class-struct.c++ entity.name.type.c++</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\w+(?=\()</string>
-			<key>name</key>
-			<string>meta.function.c entity.name.function.c</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>(?&lt;=\.)\w+(?=[^\w|\.])</string>
-			<key>name</key>
-			<string>meta.function.c meta.block.c meta.function-call.c support.function.any-method.c</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>(?&lt;=\:\:)\w+</string>
-			<key>name</key>
-			<string>meta.function.c entity.name.function.c</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\w+\:\:</string>
-			<key>name</key>
-			<string>meta.function.c entity.name.function.c</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\:\:\w+</string>
-			<key>name</key>
-			<string>meta.function.c entity.name.function.c</string>
-		</dict>
-<!--------------------------------------
-	Logical Operator - CCpp
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\+\=|\-\=|\*\=|\/\=|\%\=|\&\=|\|\=|\^\=|\&lt;\&lt;\=|\&gt;\&gt;\=</string>
-			<key>name</key>
-			<string>keyword.operator.compound.ccpp</string>
-		</dict>
-<!--------------------------------------
-	Logical Operator - CCpp
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>!(?&lt;=.)</string>
-			<key>name</key>
-			<string>keyword.operator.logical.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\&\&|\|\|</string>
-			<key>name</key>
-			<string>keyword.operator.logical.ccpp</string>
-		</dict>
-<!--------------------------------------
-	Bitwise Operator - CCpp
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>~(?&lt;=.)</string>
-			<key>name</key>
-			<string>keyword.operator.bitwise.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\&|\||\^|\&lt;\&lt;|\&gt;\&gt;</string>
-			<key>name</key>
-			<string>keyword.operator.bitwise.ccpp</string>
-		</dict>
-<!--------------------------------------
-	Comparison Operator - CCpp
----------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\&gt;\=</string>
-			<key>name</key>
-			<string>keyword.operator.comparison.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\&lt;\=</string>
-			<key>name</key>
-			<string>keyword.operator.comparison.ccpp</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\=\=|\!\=|\&lt;|\&gt;</string>
-			<key>name</key>
-			<string>keyword.operator.comparison.ccpp</string>
-		</dict>
-<!----------------------------------------
-	Arithmetic operators - CCpp
------------------------------------------->
-		<dict>
-			<key>match</key>
-			<string>\=|\+|\-|\*|\/|\%</string>
-			<key>name</key>
-			<string>keyword.operator.arithmetic.ccpp</string>
-		</dict>
-<!------------------------------------------
-	Curly Brackets (exceptions)- CCpp
--------------------------------------------->
-				<dict>
-					<key>match</key>
-					<string>(?&lt;=\s)\}(?=break|case|continue|default|do|else|for|goto|if|_Pragma|return|switch|while)</string>
-					<key>name</key>
-					<string>open.curly.bracket.block.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\}(?=[^\;\s\r\n])</string>
-					<key>name</key>
-					<string>close.curly.bracket.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?&lt;=[^\s\r\n])\s*\}</string>
-					<key>name</key>
-					<string>close.curly.bracket.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\{(?=(\s*|\t*)\/\/\s*.*(\r|\n))</string>
-					<key>name</key>
-					<string>open.curly.bracket.block.ccpp</string>
-				</dict>
-<!------------------------------------------
-	Curly Brackets Block - CCpp
--------------------------------------------->
-				<dict>
-					<key>match</key>
-					<string>\{(?=(\s*|\t*)(\r|\n))</string>
-					<key>name</key>
-					<string>open.curly.bracket.block.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?&lt;=\s)\}(?=\;?)</string>
-					<key>name</key>
-					<string>close.curly.bracket.block.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>^\}</string>
-					<key>name</key>
-					<string>close.curly.bracket.block.ccpp</string>
-				</dict>
-<!------------------------------------------
-	Curly Brackets - CCpp
--------------------------------------------->
-				<dict>
-					<key>match</key>
-					<string>\{</string>
-					<key>name</key>
-					<string>open.curly.bracket.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\}</string>
-					<key>name</key>
-					<string>close.curly.bracket.ccpp</string>
-				</dict>
-<!------------------------------------------
-	Round Brackets - CCpp
--------------------------------------------->
-				<dict>
-					<key>match</key>
-					<string>\(</string>
-					<key>name</key>
-					<string>open.round.bracket.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\)</string>
-					<key>name</key>
-					<string>close.round.bracket.ccpp</string>
-				</dict>
-<!------------------------------------------
-	Angle Brackets - CCpp
--------------------------------------------->
-				<dict>
-					<key>match</key>
-					<string>\[</string>
-					<key>name</key>
-					<string>open.angle.bracket.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\]</string>
-					<key>name</key>
-					<string>close.angle.bracket.ccpp</string>
-				</dict>
-<!---------------------------------------------------
-	Period - CCpp
------------------------------------------------------>
-				<dict>
-					<key>match</key>
-					<string>\.</string>
-					<key>name</key>
-					<string>period.ccpp</string>
-				</dict>
-<!---------------------------------------------------
-	Coma - CCpp
------------------------------------------------------>
-				<dict>
-					<key>match</key>
-					<string>\,</string>
-					<key>name</key>
-					<string>coma.ccpp</string>
-				</dict>
-<!---------------------------------------------------
-	Semicolon End of Line (exceptions)- CCpp
------------------------------------------------------>
-				<dict>
-					<key>match</key>
-					<string>\;(?=(\s*|\t*)\/\/\s*.*)</string>
-					<key>name</key>
-					<string>semi_colon.eol.ccpp</string>
-				</dict>
-<!---------------------------------------------------
-	Semicolon End of Line - CCpp
------------------------------------------------------>
-				<dict>
-					<key>match</key>
-					<string>\;(?=(\s*)(\r|\n))</string>
-					<key>name</key>
-					<string>semi_colon.eol.ccpp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\s*?\;\s*?$</string>
-					<key>name</key>
-					<string>semi_colon.eol.ccpp</string>
-				</dict>
-<!---------------------------------------------------
-	Semicolon Block - CCpp
------------------------------------------------------>
-				<dict>
-					<key>match</key>
-					<string>\;</string>
-					<key>name</key>
-					<string>semi_colon.ccpp</string>
-				</dict>
-<!--------------------------------------
-	String Quoted Double - C
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>"</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.begin.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>"</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.end.c</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>string.quoted.double.c</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#string_escaped_char</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#string_placeholder</string>
-				</dict>
-			</array>
-		</dict>
-<!--------------------------------------
-	String Quoted Single - C
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>'</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.begin.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>'</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.end.c</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>string.quoted.single.c</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#string_escaped_char</string>
-				</dict>
-			</array>
-		</dict>
-<!--------------------------------------
-	Meta Preprocessor Macro C - C
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>(?x)
-        		^\s*\#\s*(define)\s+             # define
-        		((?&lt;id&gt;[a-zA-Z_][a-zA-Z0-9_]*))  # macro name
-        		(?:                              # and optionally:
-        		    (\()                         # an open parenthesis
-        		        (
-        		            \s* \g&lt;id&gt; \s*       # first argument
-        		            ((,) \s* \g&lt;id&gt; \s*)*  # additional arguments
-        		            (?:\.\.\.)?          # varargs ellipsis?
-        		        )
-        		    (\))                         # a close parenthesis
-        		)?
-        	</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.define.c</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.function.preprocessor.c</string>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.parameters.c</string>
-				</dict>
-				<key>5</key>
-				<dict>
-					<key>name</key>
-					<string>variable.parameter.preprocessor.c</string>
-				</dict>
-				<key>7</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.separator.parameters.c</string>
-				</dict>
-				<key>8</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.parameters.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(?=(?://|/\*))|$</string>
-			<key>name</key>
-			<string>meta.preprocessor.macro.c</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>(?&gt;\\\s*\n)</string>
-					<key>name</key>
-					<string>punctuation.separator.continuation.c</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>$base</string>
-				</dict>
-			</array>
-		</dict>
-<!--------------------------------------
-	Meta Preprocessor Diagnostic - C
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>^\s*#\s*(error|warning)\b</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.error.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>$</string>
-			<key>name</key>
-			<string>meta.preprocessor.diagnostic.c</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>(?&gt;\\\s*\n)</string>
-					<key>name</key>
-					<string>punctuation.separator.continuation.c</string>
-				</dict>
-			</array>
-		</dict>
-<!--------------------------------------
-	Meta Preprocessor Include - C
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>^\s*#\s*(include|import)\b\s+</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.include.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(?=(?://|/\*))|$</string>
-			<key>name</key>
-			<string>meta.preprocessor.c.include</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>(?&gt;\\\s*\n)</string>
-					<key>name</key>
-					<string>punctuation.separator.continuation.c</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>"</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.begin.c</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>"</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.end.c</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>string.quoted.double.include.c</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>&lt;</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.begin.c</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>&gt;</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.end.c</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>string.quoted.other.lt-gt.include.c</string>
-				</dict>
-			</array>
-		</dict>
-<!--------------------------------------
-	Meta Preprocessor - C
----------------------------------------->
-		<dict>
-			<key>begin</key>
-			<string>^\s*#\s*(define|defined|elif|else|if|ifdef|ifndef|line|pragma|undef)\b</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(?=(?://|/\*))|$</string>
-			<key>name</key>
-			<string>meta.preprocessor.c</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>(?&gt;\\\s*\n)</string>
-					<key>name</key>
-					<string>punctuation.separator.continuation.c</string>
-				</dict>
-			</array>
-		</dict>
-		</array>
-<!----------------------------------------------------------------------------
-	C/C++ Native Features - End
------------------------------------------------------------------------------>
-<!-------------------------------------------------------------------------
---
--- Here is the beginning of the repositories which could be include in
--- patterns.
---
---
---------------------------------------------------------------------------->
-	<key>repository</key>
-	<dict>
-<!----------------------------------------------------------------------------
-	C/C++ Native Features - Begin
------------------------------------------------------------------------------>
-<!--------------------------------------
-	Comments - C
----------------------------------------->
-		<key>comments</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.toc-list.banner.block.c</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>^/\* =(\s*.*?)\s*= \*/$\n?</string>
-					<key>name</key>
-					<string>comment.block.c</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>/\*</string>
-					<key>captures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.comment.c</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>\*/</string>
-					<key>name</key>
-					<string>comment.block.c</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\*/.*\n</string>
-					<key>name</key>
-					<string>invalid.illegal.stray-comment-end.c</string>
-				</dict>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.toc-list.banner.line.c</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>^// =(\s*.*?)\s*=\s*$\n?</string>
-					<key>name</key>
-					<string>comment.line.banner.c++</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>//</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.comment.c</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>$\n?</string>
-					<key>name</key>
-					<string>comment.line.double-slash.c++</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>match</key>
-							<string>(?&gt;\\\s*\n)</string>
-							<key>name</key>
-							<string>punctuation.separator.continuation.c++</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-<!------------------------------------------
-	Constant Character Escape - C
---------------------------------------------->
-		<key>string_escaped_char</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>\\(\\|[abefnprtv'"?]|[0-3]\d{,2}|[4-7]\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8})</string>
-					<key>name</key>
-					<string>constant.character.escape.c</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\\.</string>
-					<key>name</key>
-					<string>invalid.illegal.unknown-escape.c</string>
-				</dict>
-			</array>
-		</dict>
-<!-------------------------------------------
-	Constant Other Placeholder - C
----------------------------------------------->
-		<key>string_placeholder</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>(?x)%
-    						(\d+\$)?                             # field (argument #)
-    						[#0\- +']*                           # flags
-    						[,;:_]?                              # separator character (AltiVec)
-    						((-?\d+)|\*(-?\d+\$)?)?              # minimum field width
-    						(\.((-?\d+)|\*(-?\d+\$)?)?)?         # precision
-    						(hh|h|ll|l|j|t|z|q|L|vh|vl|v|hv|hl)? # length modifier
-    						[diouxXDOUeEfFgGaACcSspn%]           # conversion type
-    					</string>
-					<key>name</key>
-					<string>constant.other.placeholder.c</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>%</string>
-					<key>name</key>
-					<string>invalid.illegal.placeholder.c</string>
-				</dict>
-			</array>
-		</dict>
-<!----------------------
-	Disabled - C
-------------------------->
-		<key>disabled</key>
-		<dict>
-			<key>begin</key>
-			<string>^\s*#\s*if(n?def)?\b.*$</string>
-			<key>comment</key>
-			<string>eat nested preprocessor if(def)s</string>
-			<key>end</key>
-			<string>^\s*#\s*endif\b</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#disabled</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#pragma-mark</string>
-				</dict>
-			</array>
-		</dict>
-<!----------------------
-	Pragma Mark - C
-------------------------->
-		<key>pragma-mark</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>meta.preprocessor.c</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.pragma.c</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>meta.toc-list.pragma-mark.c</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^\s*(#\s*(pragma\s+mark)\s+(.*))</string>
-			<key>name</key>
-			<string>meta.section</string>
-		</dict>
-<!-------------------------------------------
-	Preprocessor Rule Disabled - C
----------------------------------------------->
-		<key>preprocessor-rule-disabled</key>
-		<dict>
-			<key>begin</key>
-			<string>^\s*(#(if)\s+(0)\b).*</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>meta.preprocessor.c</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.if.c</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>constant.numeric.preprocessor.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>^\s*(#\s*(endif)\b)</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>^\s*(#\s*(else)\b)</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.preprocessor.c</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.control.import.else.c</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(?=^\s*#\s*endif\b)</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>$base</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string></string>
-					<key>end</key>
-					<string>(?=^\s*#\s*(else|endif)\b)</string>
-					<key>name</key>
-					<string>comment.block.preprocessor.if-branch</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#disabled</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#pragma-mark</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-<!-------------------------------------------
-	Preprocessor Rule Enabled - C
----------------------------------------------->
-		<key>preprocessor-rule-enabled</key>
-		<dict>
-			<key>begin</key>
-			<string>^\s*(#(if)\s+(0*1)\b)</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>meta.preprocessor.c</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.if.c</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>constant.numeric.preprocessor.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>^\s*(#\s*(endif)\b)</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>^\s*(#\s*(else)\b).*</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.preprocessor.c</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.control.import.else.c</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>comment.block.preprocessor.else-branch</string>
-					<key>end</key>
-					<string>(?=^\s*#\s*endif\b)</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#disabled</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#pragma-mark</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string></string>
-					<key>end</key>
-					<string>(?=^\s*#\s*(else|endif)\b)</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>$base</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-<!-------------------------------------------
-	Preprocessor Rule Other - C
----------------------------------------------->
-		<key>preprocessor-rule-other</key>
-		<dict>
-			<key>begin</key>
-			<string>^\s*(#\s*(if(n?def)?)\b.*?(?:(?=(?://|/\*))|$))</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>meta.preprocessor.c</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.import.c</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>^\s*(#\s*(endif)\b)</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>$base</string>
-				</dict>
-			</array>
-		</dict>
-<!----------------------------------------------------------------------------
-	C/C++ Native Features - End
------------------------------------------------------------------------------>		</dict>
-	<key>scopeName</key>
-	<string>source.c</string>
-	<key>uuid</key>
-	<string>25066DC2-6B1D-11D9-9D5B-000D93589AF6</string>
+    <key>comment</key>
+    <string>C11 tmLanguage</string>
+    <key>fileTypes</key>
+    <array>
+        <string>c</string>
+        <string>h</string>
+    </array>
+    <key>firstLineMatch</key>
+    <string>\b(-[*]-)(Mode:)? C \1\b</string>
+    <key>foldingStartMarker</key>
+    <string>\.*({|\()</string>
+    <key>foldingStopMarker</key>
+    <string>\.*(}|\))</string>
+    <key>keyEquivalent</key>
+    <string>^~C</string>
+    <key>name</key>
+    <string>C11</string>
+    <key>patterns</key>
+    <array>
+        <dict>
+            <key>begin</key>
+            <string>//</string>
+            <key>end</key>
+            <string>(?&lt;!\\)\n</string>
+            <key>name</key>
+            <string>comment.line.double_slash.c</string>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>match</key>
+                    <string>\\\s*\n</string>
+                    <key>name</key>
+                    <string>comment.line.double_slash.line_continuation.c</string>
+                </dict>
+            </array>
+        </dict>
+        <dict>
+            <key>begin</key>
+            <string>/\*</string>
+            <key>end</key>
+            <string>\*/</string>
+            <key>name</key>
+            <string>comment.block.slash_star.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>(?&lt;=\W|^)\.\d+([eE][+-]?\d+)?[fFlL]?\b</string>
+            <key>name</key>
+            <string>constant.numeric.float_and_double_and_long_double.decimal.pointdigit.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>(?&lt;!\w)\d+\.(\d+([eE][+-]?\d+)?)?[fFlL]?(?=\W)</string>
+            <key>name</key>
+            <string>constant.numeric.float_and_double_and_long_double.decimal.digitpoint.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b0[xX](\h+)?\.\h*([pP][+-]?\d+)?[fFlL]?</string>
+            <key>name</key>
+            <string>constant.numeric.float_and_double_and_long_double.hexadecimal.pointdigit.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>(?&lt;!\.)([1-9]\d*|0)([eE][+-]?\d+)?[uU]?(ll?|LL?)?\b</string>
+            <key>name</key>
+            <string>constant.numericic.signed_and_unsigned_and_long_and_long_long_integer.decimal.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b0[0-7]+</string>
+            <key>name</key>
+            <string>constant.numeric.integer.octal.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b0[xX]\h+</string>
+            <key>name</key>
+            <string>constant.numeric.integer.hexadecimal.c</string>
+        </dict>
+        <dict>
+            <key>include</key>
+            <string>#strong_constants</string>
+        </dict>
+        <dict>
+            <key>include</key>
+            <string>#weak_constants</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(typedef|extern|static|_Thread_local|auto|register)\b</string>
+            <key>name</key>
+            <string>keyword.storage.class_specifiers.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(const|restrict|volatile|_Atomic)\b</string>
+            <key>name</key>
+            <string>keyword.type.type_qualifiers.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(inline|(_N|n)oreturn)\b</string>
+            <key>name</key>
+            <string>keyword.function.function_specifiers.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(((_S|s)tatic_)?assert)\b</string>
+            <key>name</key>
+            <string>keyword.other.assertion.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b_Generic\b</string>
+            <key>name</key>
+            <string>keyword.other.generic.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(break|continue|goto|return)\b</string>
+            <key>name</key>
+            <string>keyword.control.jump_statements.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(do|while|for)\b</string>
+            <key>name</key>
+            <string>keyword.control.iteration_statements.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(switch|case|default)\b</string>
+            <key>name</key>
+            <string>keyword.control.switch_statements.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\b(if|else)\b</string>
+            <key>name</key>
+            <string>keyword.control.conditional_statements.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\?|:</string>
+            <key>name</key>
+            <string>keyword.operator.ternary.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\+\+|--|(\+|-|\*|/|%|&amp;|\^|\||&lt;&lt;|&gt;&gt;)=</string>
+            <key>name</key>
+            <string>keyword.operator.assignment.augmented.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>(&lt;|&gt;)=?|(=|!)=</string>
+            <key>name</key>
+            <string>keyword.operator.comparison.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>&amp;&amp;|\|\||!</string>
+            <key>name</key>
+            <string>keyword.operator.bool.logical.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>\+|-|\*|/|%|&amp;|\^|\||~|&lt;&lt;|&gt;&gt;|(size|offset)of|(_A|a)lign(as|of)</string>
+            <key>name</key>
+            <string>keyword.operator.arithmetic.c</string>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>=|\.|-&gt;</string>
+            <key>name</key>
+            <string>keyword.operator.value_and_annotation_assignment.c</string>
+        </dict>
+        <dict>
+            <key>include</key>
+            <string>#builtin_types</string>
+        </dict>
+        <dict>
+            <key>include</key>
+            <string>#macros</string>
+        </dict>
+        <dict>
+            <key>begin</key>
+            <string>\(\s*(\*+)\s*([a-zA-Z_]\w*)\s*\)\s*\(</string>
+            <key>beginCaptures</key>
+            <dict>
+                <key>1</key>
+                <dict>
+                    <key>name</key>
+                    <string>keyword.operator.pointer.c</string>
+                </dict>
+                <key>2</key>
+                <dict>
+                    <key>name</key>
+                    <string>support.function.name.c</string>
+                </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>name</key>
+            <string>meta.function_pointer.c</string>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>include</key>
+                    <string>$self</string>
+                </dict>
+            </array>
+        </dict>
+        <dict>
+            <key>begin</key>
+            <string>([a-zA-Z_]\w*)\s*\(</string>
+            <key>beginCaptures</key>
+            <dict>
+                <key>1</key>
+                <dict>
+                    <key>name</key>
+                    <string>support.function.name.c</string>
+                </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>name</key>
+            <string>meta.function_call.c</string>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>include</key>
+                    <string>$self</string>
+                </dict>
+            </array>
+        </dict>
+        <dict>
+            <key>match</key>
+            <string>(?&lt;=\.|-&gt;)\s*[a-zA-Z_]\w*</string>
+            <key>name</key>
+            <string>variable.language.member_access.c</string>
+        </dict>
+        <dict>
+            <key>include</key>
+            <string>#string_quoted</string>
+        </dict>
+        <dict>
+            <key>include</key>
+            <string>#generic_names</string>
+        </dict>
+    </array>
+    <key>repository</key>
+    <dict>
+        <key>builtin_functions</key>
+        <dict>
+            <key>match</key>
+            <string>is(al(num|pha)|cntrl|x?digit|graph|(low|upp)er|p(rin|unc)t|space)|to((low|upp)er)</string>
+            <key>name</key>
+            <string>support.function.builtin.c</string>
+        </dict>
+        <key>builtin_types</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>match</key>
+                    <string>(((char|int|void|float|double|(b|_B)ool)\s+){2,}|(_Complex(_I)?|complex|_Imaginary(_I)|imaginary)+|((un)?signed\s+)+((float|(long\s+)?double|void|(b|_B)ool)(\s+char)?\s+)+)</string>
+                    <key>name</key>
+                    <string>invalid.illegal.support.type.c</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b(void|(b|_B)ool|(float|(long\s+)?double)(\s+(_Complex(_I)?|complex|_Imaginary(_I)|imaginary))?|((un)?signed\s+)?(char|(short|long(\s+long)?)(\s+int)?|(int)?))\b</string>
+                    <key>name</key>
+                    <string>support.type.c</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b(FILE|va_list|lconv|once_flag|mtx_(plain|recursive|timed)|thrd_(success|nomem|timedout|busy|error)|(ptrdiff|r?size|wchar|fpos|l?l?div|char(16|32)|sig_atomic|clock|time|max_align|u?int((_(fast|least))?(8|16|32|64)|(max|ptr))|imaxdiv|fe(nv|xcept)|errno|cnd|thrd(_start)?|tss(_dtor)?|mtx)_t)\b</string>
+                    <key>name</key>
+                    <string>storage.modifier.variable.type.special.c</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b(struct|union|enum)\b</string>
+                    <key>name</key>
+                    <string>support.type.member.c</string>
+                </dict>
+            </array>
+        </dict>
+        <key>constant_placeholder</key>
+        <dict>
+            <key>match</key>
+            <string>%(((ll?|t|h)?(d|i))|(ll?|z|j|h)?u|((\.\d*)?(l|L)?f)|[%csaeEoxXpngG])</string>
+            <key>name</key>
+            <string>string.interpolated.placeholder.c</string>
+        </dict>
+        <key>entity_name_class</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>include</key>
+                    <string>#illegal_names</string>
+                </dict>
+                <dict>
+                    <key>include</key>
+                    <string>#generic_names</string>
+                </dict>
+            </array>
+        </dict>
+        <key>escaped_characters</key>
+        <dict>
+            <key>match</key>
+            <string>\\(x\h+|[0-7]([0-7][0-7]?)?|\n|"|\'|\?|a|b|f|n|r|t|v|\\|0)</string>
+            <key>name</key>
+            <string>constant.character.escaped.special.c</string>
+        </dict>
+        <key>escaped_unicode_characters</key>
+        <dict>
+            <key>match</key>
+            <string>\\(u\h{4}|U\h{8})</string>
+            <key>name</key>
+            <string>constant.character.escaped.c</string>
+        </dict>
+        <key>generic_names</key>
+        <dict>
+            <key>match</key>
+            <string>[a-zA-Z_]\w*</string>
+        </dict>
+        <key>illegal_names</key>
+        <dict>
+            <key>match</key>
+            <string>\b(auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|inline|int|long|register|restrict|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|(_A|a)lign(as|of)|_Atomic|_Bool|_Generic|(_C|c)omplex(_I)?|(_I|i)maginary(_I)?|_Noreturn|((_S|s)tatic_)?assert|_Thread_local)\b</string>
+            <key>name</key>
+            <string>invalid.illegal_names.name.c</string>
+        </dict>
+        <key>macro_keyword</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>match</key>
+                    <string>\bdefined\b</string>
+                    <key>name</key>
+                    <string>keyword.operator.macro.conditional.c</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b_Pragma\b</string>
+                    <key>name</key>
+                    <string>keyword.operator.macro.pragma.c</string>
+                </dict>
+            </array>
+        </dict>
+        <key>macros</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>5</key>
+                        <dict>
+                            <key>name</key>
+                            <string>entity.other.inherited-class.include.c</string>
+                        </dict>
+                        <key>6</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.modifier.include.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>^\s*(#)\s*((include\s+(&lt;(.+)&gt;|"(.+)"))|line|error|pragma|(un|ifn?)def|else|endif)</string>
+                    <key>name</key>
+                    <string>entity.other.macro.keywords.c</string>
+                </dict>
+                <dict>
+                    <key>begin</key>
+                    <string>^\s*(#\s*define)\s+(?=[a-zA-Z_]\w*)</string>
+                    <key>beginCaptures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>entity.other.macro.define.c</string>
+                        </dict>
+                    </dict>
+                    <key>end</key>
+                    <string>\s|$\n|\W</string>
+                    <key>name</key>
+                    <string>meta.other.macro.define.c</string>
+                    <key>patterns</key>
+                    <array>
+                        <dict>
+                            <key>begin</key>
+                            <string>(?=[a-zA-Z_]\w*)</string>
+                            <key>contentName</key>
+                            <string>storage.modifier.variable.c</string>
+                            <key>end</key>
+                            <string>(?!\w)</string>
+                            <key>patterns</key>
+                            <array>
+                                <dict>
+                                    <key>include</key>
+                                    <string>#strong_constants</string>
+                                </dict>
+                                <dict>
+                                    <key>include</key>
+                                    <string>#weak_constants</string>
+                                </dict>
+                            </array>
+                        </dict>
+                    </array>
+                </dict>
+                <dict>
+                    <key>begin</key>
+                    <string>^\s*(#\s*(el)?if)</string>
+                    <key>beginCaptures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>entity.other.macro.conditional.c</string>
+                        </dict>
+                    </dict>
+                    <key>end</key>
+                    <string>(?&lt;!\\)\n</string>
+                    <key>name</key>
+                    <string>meta.other.macro.conditional.c</string>
+                    <key>patterns</key>
+                    <array>
+                        <dict>
+                            <key>include</key>
+                            <string>#macro_keyword</string>
+                        </dict>
+                        <dict>
+                            <key>include</key>
+                            <string>#strong_constants</string>
+                        </dict>
+                        <dict>
+                            <key>include</key>
+                            <string>#weak_constants</string>
+                        </dict>
+                        <dict>
+                            <key>include</key>
+                            <string>$self</string>
+                        </dict>
+                    </array>
+                </dict>
+                <dict>
+                    <key>begin</key>
+                    <string>[a-zA-Z_]\w*\s*,?\s*(##)</string>
+                    <key>beginCaptures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>keyword.operator.macro.concatanate.c</string>
+                        </dict>
+                    </dict>
+                    <key>end</key>
+                    <string>\s*[a-zA-Z_]\w*(?!\s*,?\s*(##))</string>
+                    <key>name</key>
+                    <string>string.interpolated.macro.concatanate.c</string>
+                    <key>patterns</key>
+                    <array>
+                        <dict>
+                            <key>captures</key>
+                            <dict>
+                                <key>1</key>
+                                <dict>
+                                    <key>name</key>
+                                    <string>keyword.operator.macro.concatanate.c</string>
+                                </dict>
+                            </dict>
+                            <key>contentName</key>
+                            <string>string.interpolated.macro.concatanate.c</string>
+                            <key>match</key>
+                            <string>\s*[a-zA-Z_]\w*\s*,?\s*(##)</string>
+                        </dict>
+                    </array>
+                </dict>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>keyword.operator.macro.stringify.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>(?&lt;!^)\s*(#)\s*[a-zA-Z_]\w*</string>
+                    <key>name</key>
+                    <string>string.interpolated.macro.stringify.c</string>
+                </dict>
+            </array>
+        </dict>
+        <key>string_patterns</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>include</key>
+                    <string>#constant_placeholder</string>
+                </dict>
+                <dict>
+                    <key>include</key>
+                    <string>#escaped_characters</string>
+                </dict>
+                <dict>
+                    <key>include</key>
+                    <string>#escaped_unicode_characters</string>
+                </dict>
+            </array>
+        </dict>
+        <key>string_quoted</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.string.quoted.single.prefix.c</string>
+                        </dict>
+                        <key>2</key>
+                        <dict>
+                            <key>name</key>
+                            <string>constant.character.escaped.trigraph_sequences.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>(\b[LUu])?'(\?\?[=/()'&lt;&gt;!-])'</string>
+                    <key>name</key>
+                    <string>string.quoted.single.trigraph.c</string>
+                </dict>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.string.quoted.single.prefix.c</string>
+                        </dict>
+                        <key>2</key>
+                        <dict>
+                            <key>name</key>
+                            <string>constant.character.escaped.special.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>(\b[LUu])?'(\\(x\h+|[0-7]([0-7][0-7]?)?|\n|"|\'|\?|a|b|f|n|r|t|v|\\|0))'</string>
+                    <key>name</key>
+                    <string>string.quoted.single.escaped.c</string>
+                </dict>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.string.quoted.single.prefix.c</string>
+                        </dict>
+                        <key>2</key>
+                        <dict>
+                            <key>name</key>
+                            <string>constant.character.escaped.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>(\b[LUu])?'(\\(u\h{4}|U\h{8}))'</string>
+                    <key>name</key>
+                    <string>string.quoted.single.hexadecimal.c</string>
+                </dict>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.string.quoted.single.prefix.c</string>
+                        </dict>
+                        <key>2</key>
+                        <dict>
+                            <key>name</key>
+                            <string>invalid.illegal.string.quoted.single.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>(\b[LUu])?'(\\|'|\n)'</string>
+                    <key>name</key>
+                    <string>string.quoted.single.illegal.c</string>
+                </dict>
+                <dict>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.string.quoted.single.prefix.c</string>
+                        </dict>
+                        <key>2</key>
+                        <dict>
+                            <key>name</key>
+                            <string>invalid.illegal.string.quoted.more.c</string>
+                        </dict>
+                    </dict>
+                    <key>match</key>
+                    <string>(\b[LUu])?'.(.*?)'</string>
+                    <key>name</key>
+                    <string>string.quoted.single.regular.c</string>
+                </dict>
+                <dict>
+                    <key>begin</key>
+                    <string>(\b[LU]|u8?)?"</string>
+                    <key>beginCaptures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.string.quoted.single.prefix.c</string>
+                        </dict>
+                    </dict>
+                    <key>end</key>
+                    <string>"|(\n)</string>
+                    <key>endCaptures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>invalid.illegal.unclosed_string.cython</string>
+                        </dict>
+                    </dict>
+                    <key>name</key>
+                    <string>string.quoted.double.c</string>
+                    <key>patterns</key>
+                    <array>
+                        <dict>
+                            <key>include</key>
+                            <string>#trigraph_sequences</string>
+                        </dict>
+                        <dict>
+                            <key>include</key>
+                            <string>#string_patterns</string>
+                        </dict>
+                        <dict>
+                            <key>match</key>
+                            <string>(\\|"|\n)</string>
+                            <key>name</key>
+                            <string>invalid.illegal.string.quoted.single.c</string>
+                        </dict>
+                    </array>
+                </dict>
+            </array>
+        </dict>
+        <key>strong_constants</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>match</key>
+                    <string>\.\.\.</string>
+                    <key>name</key>
+                    <string>constant.other.ellipsis.c</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b(NULL|EOF|EXIT_(FAILURE|SUCCESS)|true|false|std(in|out|err))\b</string>
+                    <key>name</key>
+                    <string>constant.language.word_like.c</string>
+                </dict>
+            </array>
+        </dict>
+        <key>trigraph_sequences</key>
+        <dict>
+            <key>match</key>
+            <string>\?\?[=/()'&lt;&gt;!-]</string>
+            <key>name</key>
+            <string>constant.character.escaped.trigraph_sequences.c</string>
+        </dict>
+        <key>weak_constants</key>
+        <dict>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>match</key>
+                    <string>\b__((LIN|FIL|DAT|TIM)E|VA_ARGS|func|STDC(_(HOSTED|VERSION|ISO_10646|MB_MIGHT_NEQ_WC|UTF_(16|32)|ANALYZABLE|IEC_559(_COMPLEX_)?|(WANT_)?LIB_EXT1|NO_(ATOMICS|COMPLEX|THREADS|VLA)))?)__\b</string>
+                    <key>name</key>
+                    <string>support.variable.macro.dunder.c</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b(NDEBUG|CHAR_BIT|CLOCKS_PER_SEC|(S?CHAR|SHRT|INT|L?LONG)_(MAX|MIN)|(U(CHAR|SHRT|INT|L?LONG)|MB_LEN)_MAX|FLT_(RADIX|ROUNDS|EVAL_METHOD)|DECIMAL_DIG|(FLT|L?DBL)_(((MANT|DECIMAL)_)?DIG|(MIN|MAX)((_(10_)?EXP))?|EPSILON|TRUE_MIN|HAS_SUBNORM)|FP_ILOGB(0|NAN)|FE_((OVER|UNDER)FLOW|IN(EXACT|VALID)|ALL_EXCEPT|DIVBYZERO|(UP|DOWN)WARD|TO(NEAREST|WARDZERO)|DFL_ENV)|LC_(ALL|COLLATE|CTYPE|MONETARY|NUMERIC|TIME)|BUFSIZ|(TMP|F(OPEN|ILENAME))_MAX|_IO(F|L|N)BF|SEEK_(CUR|END|SET)|L_tmpnam|SIG(ABRT|FPE|ILL|INT|SEGV|TERM|_(DFL|IGN|ERR))|ONCE_FLAG_INIT|TSS_DTOR_ITERATIONS)\b</string>
+                    <key>name</key>
+                    <string>support.variable.macro.constant.c</string>
+                </dict>
+            </array>
+        </dict>
+    </dict>
+    <key>scopeName</key>
+    <string>source.c</string>
+    <key>uuid</key>
+    <string>8F217A3C-DD44-C9F6-8883-7FF1A89624CC</string>
 </dict>
 </plist>

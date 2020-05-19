@@ -3,10 +3,10 @@
 	<content><![CDATA[class ${1:name}
 {
 public:
-	$1(${2:/* args */}) ${3:noexcept} ${4:= default;}
-	~$1() ${5:noexcept} ${6:= default;}
+	$1(${2:/* args */}) ${3:= default;}
+	~$1() ${4:= default;}
 private:
-	${7:/* data */}
+	${5:/* data */}
 };]]></content>
 	<tabTrigger>cl_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>

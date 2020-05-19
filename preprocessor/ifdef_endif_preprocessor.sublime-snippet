@@ -1,6 +1,6 @@
 <snippet>
 	<description>#ifdef … #endif</description>
-	<content><![CDATA[#ifdef ${1:SYMBOL}}
+	<content><![CDATA[#ifdef ${1:SYMBOL}
 $0
 #endif]]></content>
 	<tabTrigger>prifdef_</tabTrigger>
