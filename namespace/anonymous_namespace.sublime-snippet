@@ -1,10 +1,10 @@
 <snippet>
     <description>Namespace</description>
-    <content><![CDATA[namespace ${1:name}
+    <content><![CDATA[namespace
 {
 $0
-} // namespace $1
+} // anonymous namespace
 ]]></content>
-    <tabTrigger>nsp_</tabTrigger>
+    <tabTrigger>ansp_</tabTrigger>
     <scope>source.c++, source.objc++</scope>
 </snippet>
