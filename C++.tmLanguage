@@ -71,12 +71,6 @@
             </array>
         </dict>
         <dict>
-            <key>match</key>
-            <string>\b(constexpr|auto)\b</string>
-            <key>name</key>
-            <string>storage.modifier.c++</string>
-        </dict>
-        <dict>
             <key>include</key>
             <string>#preprocessor-rule-enabled</string>
         </dict>
@@ -94,13 +88,13 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>\b(break|case|continue|default|do|else|for|goto|if|_Pragma|return|switch|while)\b</string>
+            <string>\b(alignas|alignof|break|case|continue|default|do|else|for|goto|if|_Pragma|return|switch|while)\b</string>
             <key>name</key>
             <string>keyword.control.c++</string>
         </dict>
         <dict>
             <key>match</key>
-            <string>\b(asm|__asm__|auto|bool||char|_Complex|double|enum|float|_Imaginary|int|long|short|signed|struct|typedef|union|unsigned|void|size_t|int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|char16_t|char32_t)\b</string>
+            <string>\b(auto|asm|__asm__|bool|char|_Complex|double|enum|float|_Imaginary|int|long|short|signed|struct|typedef|union|unsigned|void|size_t|class|wchar_t)\b</string>
             <key>name</key>
             <string>storage.type.c++</string>
         </dict>
@@ -413,7 +407,7 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>\b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|qaddr_t|caddr_t|daddr_t|dev_t|fixpt_t|blkcnt_t|blksize_t|gid_t|in_addr_t|in_port_t|ino_t|key_t|mode_t|nlink_t|id_t|pid_t|off_t|segsz_t|swblk_t|uid_t|id_t|clock_t|size_t|ssize_t|time_t|useconds_t|suseconds_t)\b</string>
+            <string>\b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|qaddr_t|caddr_t|daddr_t|dev_t|fixpt_t|blkcnt_t|blksize_t|gid_t|in_addr_t|in_port_t|ino_t|key_t|mode_t|nlink_t|id_t|pid_t|off_t|segsz_t|swblk_t|uid_t|id_t|clock_t|ssize_t|time_t|useconds_t|suseconds_t)\b</string>
             <key>name</key>
             <string>support.type.sys-types.c++</string>
         </dict>
@@ -518,7 +512,7 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>\b(catch|operator|try|throw|using)\b</string>
+            <string>\b(typedef|catch|operator|try|throw|using)\b</string>
             <key>name</key>
             <string>keyword.control.c++</string>
         </dict>
@@ -565,12 +559,6 @@
                 #| \s+[&gt;&lt;]{2}\s+) -->
             <key>name</key>
             <string>keyword.operator.c++</string>
-        </dict>
-        <dict>
-            <key>match</key>
-            <string>\b(class|wchar_t)\b</string>
-            <key>name</key>
-            <string>storage.type.c++</string>
         </dict>
         <dict>
             <key>match</key>
@@ -1479,7 +1467,7 @@
                 </dict>
                 <dict>
                     <key>match</key>
-                    <string>\b(typedef)\s+.*\s+([_A-Za-z][_A-Za-z0-9]*);</string>
+                    <string>\b(typedef)\s+([_A-Za-z][_A-Za-z0-9\:&lt;&gt;]*)\s+([_A-Za-z][_A-Za-z0-9]*);</string>
                     <key>captures</key>
                     <dict>
                         <key>1</key>
@@ -1492,9 +1480,38 @@
                             <key>name</key>
                             <string>entity.name.type.class.c++</string>
                         </dict>
+                        <key>3</key>
+                        <dict>
+                            <key>name</key>
+                            <string>entity.name.type.class.c++</string>
+                        </dict>
                     </dict>
                     <key>name</key>
                     <string>meta.typedef-declaration.c++</string>
+                </dict>
+                <dict>
+                    <key>match</key>
+                    <string>\b(using)\s+([_A-Za-z][_A-Za-z0-9]*)\s*=\s*([_A-Za-z][_A-Za-z0-9\:&lt;&gt;]*);</string>
+                    <key>captures</key>
+                    <dict>
+                        <key>1</key>
+                        <dict>
+                            <key>name</key>
+                            <string>storage.type.c++</string>
+                        </dict>
+                        <key>2</key>
+                        <dict>
+                            <key>name</key>
+                            <string>entity.name.type.class.c++</string>
+                        </dict>
+                        <key>3</key>
+                        <dict>
+                            <key>name</key>
+                            <string>entity.name.type.class.c++</string>
+                        </dict>
+                    </dict>
+                    <key>name</key>
+                    <string>meta.using-declaration.c++</string>
                 </dict>
                 <dict>
                     <key>begin</key>
