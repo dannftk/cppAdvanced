@@ -4,6 +4,6 @@
 {
 	$0
 };]]></content>
-	<tabTrigger>en_</tabTrigger>
+	<tabTrigger>enum_</tabTrigger>
 	<scope>source.c, source.c++, source.objc, source.objc++</scope>
 </snippet>

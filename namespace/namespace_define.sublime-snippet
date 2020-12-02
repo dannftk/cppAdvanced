@@ -1,6 +1,6 @@
 <snippet>
 	<description>Namespace</description>
 	<content><![CDATA[namespace ${1:name} = ${2:/* namespace */};]]></content>
-	<tabTrigger>nsp=_</tabTrigger>
+	<tabTrigger>aliasnamespace_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

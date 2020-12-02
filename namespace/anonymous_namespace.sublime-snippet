@@ -5,6 +5,6 @@
 $0
 } // anonymous namespace
 ]]></content>
-    <tabTrigger>ansp_</tabTrigger>
+    <tabTrigger>anonnamespace_</tabTrigger>
     <scope>source.c++, source.objc++</scope>
 </snippet>

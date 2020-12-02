@@ -4,6 +4,6 @@
 {
 	${2:/* data */}
 };]]></content>
-	<tabTrigger>strpod_</tabTrigger>
+	<tabTrigger>declstructpod_</tabTrigger>
 	<scope>source.c, source.objc, source.c++, source.objc++</scope>
 </snippet>

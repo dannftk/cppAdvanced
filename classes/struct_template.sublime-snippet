@@ -8,6 +8,6 @@ struct ${2:name}
 
 	${6:/* data */}
 };]]></content>
-	<tabTrigger>strt_</tabTrigger>
+	<tabTrigger>decltempstruct_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

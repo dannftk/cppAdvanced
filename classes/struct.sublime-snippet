@@ -7,6 +7,6 @@
 
 	${5:/* data */}
 };]]></content>
-	<tabTrigger>str_</tabTrigger>
+	<tabTrigger>declstruct_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

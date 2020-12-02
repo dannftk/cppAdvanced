@@ -4,6 +4,6 @@
 {
 	${0:/* TODO: loop implementation required */}
 }]]></content>
-	<tabTrigger>forr_</tabTrigger>
+	<tabTrigger>forrange_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

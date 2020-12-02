@@ -1,0 +1,224 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: C11
+comment: C11 tmLanguage
+file_extensions: [c, h]
+first_line_match: '\b(-[*]-)(Mode:)? C \1\b'
+scope: source.c
+contexts:
+  main:
+    - match: //
+      push:
+        - meta_scope: comment.line.double_slash.c
+        - match: (?<!\\)\n
+          pop: true
+        - match: \\\s*\n
+          scope: comment.line.double_slash.line_continuation.c
+    - match: /\*
+      push:
+        - meta_scope: comment.block.slash_star.c
+        - match: \*/
+          pop: true
+    - match: '(?<=\W|^)\.\d+([eE][+-]?\d+)?[fFlL]?\b'
+      scope: constant.numeric.float_and_double_and_long_double.decimal.pointdigit.c
+    - match: '(?<!\w)\d+\.(\d+([eE][+-]?\d+)?)?[fFlL]?(?=\W)'
+      scope: constant.numeric.float_and_double_and_long_double.decimal.digitpoint.c
+    - match: '\b0[xX](\h+)?\.\h*([pP][+-]?\d+)?[fFlL]?'
+      scope: constant.numeric.float_and_double_and_long_double.hexadecimal.pointdigit.c
+    - match: '(?<!\.)([1-9]\d*|0)([eE][+-]?\d+)?[uU]?(ll?|LL?)?\b'
+      scope: constant.numericic.signed_and_unsigned_and_long_and_long_long_integer.decimal.c
+    - match: '\b0[0-7]+'
+      scope: constant.numeric.integer.octal.c
+    - match: '\b0[xX]\h+'
+      scope: constant.numeric.integer.hexadecimal.c
+    - include: strong_constants
+    - include: weak_constants
+    - match: \b(typedef|extern|static|_Thread_local|auto|register)\b
+      scope: keyword.storage.class_specifiers.c
+    - match: \b(const|restrict|volatile|_Atomic)\b
+      scope: keyword.type.type_qualifiers.c
+    - match: \b(inline|(_N|n)oreturn)\b
+      scope: keyword.function.function_specifiers.c
+    - match: \b(((_S|s)tatic_)?assert)\b
+      scope: keyword.other.assertion.c
+    - match: \b_Generic\b
+      scope: keyword.other.generic.c
+    - match: \b(break|continue|goto|return)\b
+      scope: keyword.control.jump_statements.c
+    - match: \b(do|while|for)\b
+      scope: keyword.control.iteration_statements.c
+    - match: \b(switch|case|default)\b
+      scope: keyword.control.switch_statements.c
+    - match: \b(if|else)\b
+      scope: keyword.control.conditional_statements.c
+    - match: '\?|:'
+      scope: keyword.operator.ternary.c
+    - match: \+\+|--|(\+|-|\*|/|%|&|\^|\||<<|>>)=
+      scope: keyword.operator.assignment.augmented.c
+    - match: (<|>)=?|(=|!)=
+      scope: keyword.operator.comparison.c
+    - match: '&&|\|\||!'
+      scope: keyword.operator.bool.logical.c
+    - match: \+|-|\*|/|%|&|\^|\||~|<<|>>|(size|offset)of|(_A|a)lign(as|of)
+      scope: keyword.operator.arithmetic.c
+    - match: '=|\.|->'
+      scope: keyword.operator.value_and_annotation_assignment.c
+    - include: builtin_types
+    - include: macros
+    - match: '\(\s*(\*+)\s*([a-zA-Z_]\w*)\s*\)\s*\('
+      captures:
+        1: keyword.operator.pointer.c
+        2: support.function.name.c
+      push:
+        - meta_scope: meta.function_pointer.c
+        - match: \)
+          pop: true
+        - include: main
+    - match: '([a-zA-Z_]\w*)\s*\('
+      captures:
+        1: support.function.name.c
+      push:
+        - meta_scope: meta.function_call.c
+        - match: \)
+          pop: true
+        - include: main
+    - match: '(?<=\.|->)\s*[a-zA-Z_]\w*'
+      scope: variable.language.member_access.c
+    - include: string_quoted
+    - include: generic_names
+  builtin_functions:
+    - match: is(al(num|pha)|cntrl|x?digit|graph|(low|upp)er|p(rin|unc)t|space)|to((low|upp)er)
+      scope: support.function.builtin.c
+  builtin_types:
+    - match: '(((char|int|void|float|double|(b|_B)ool)\s+){2,}|(_Complex(_I)?|complex|_Imaginary(_I)|imaginary)+|((un)?signed\s+)+((float|(long\s+)?double|void|(b|_B)ool)(\s+char)?\s+)+)'
+      scope: invalid.illegal.support.type.c
+    - match: \b(void|(b|_B)ool|(float|(long\s+)?double)(\s+(_Complex(_I)?|complex|_Imaginary(_I)|imaginary))?|((un)?signed\s+)?(char|(short|long(\s+long)?)(\s+int)?|(int)?))\b
+      scope: support.type.c
+    - match: \b(FILE|va_list|lconv|once_flag|mtx_(plain|recursive|timed)|thrd_(success|nomem|timedout|busy|error)|(ptrdiff|r?size|wchar|fpos|l?l?div|char(16|32)|sig_atomic|clock|time|max_align|u?int((_(fast|least))?(8|16|32|64)|(max|ptr))|imaxdiv|fe(nv|xcept)|errno|cnd|thrd(_start)?|tss(_dtor)?|mtx)_t)\b
+      scope: storage.modifier.variable.type.special.c
+    - match: \b(struct|union|enum)\b
+      scope: support.type.member.c
+  constant_placeholder:
+    - match: '%(((ll?|t|h)?(d|i))|(ll?|z|j|h)?u|((\.\d*)?(l|L)?f)|[%csaeEoxXpngG])'
+      scope: string.interpolated.placeholder.c
+  entity_name_class:
+    - include: illegal_names
+    - include: generic_names
+  escaped_characters:
+    - match: '\\(x\h+|[0-7]([0-7][0-7]?)?|\n|"|\''|\?|a|b|f|n|r|t|v|\\|0)'
+      scope: constant.character.escaped.special.c
+  escaped_unicode_characters:
+    - match: '\\(u\h{4}|U\h{8})'
+      scope: constant.character.escaped.c
+  generic_names:
+    - match: '[a-zA-Z_]\w*'
+  illegal_names:
+    - match: \b(auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|inline|int|long|register|restrict|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|(_A|a)lign(as|of)|_Atomic|_Bool|_Generic|(_C|c)omplex(_I)?|(_I|i)maginary(_I)?|_Noreturn|((_S|s)tatic_)?assert|_Thread_local)\b
+      scope: invalid.illegal_names.name.c
+  macro_keyword:
+    - match: \bdefined\b
+      scope: keyword.operator.macro.conditional.c
+    - match: \b_Pragma\b
+      scope: keyword.operator.macro.pragma.c
+  macros:
+    - match: ^\s*(#)\s*((include\s+(<(.+)>|"(.+)"))|line|error|pragma|(un|ifn?)def|else|endif)
+      scope: entity.other.macro.keywords.c
+      captures:
+        5: entity.other.inherited-class.include.c
+        6: storage.modifier.include.c
+    - match: '^\s*(#\s*define)\s+(?=[a-zA-Z_]\w*)'
+      captures:
+        1: entity.other.macro.define.c
+      push:
+        - meta_scope: meta.other.macro.define.c
+        - match: \s|$\n|\W
+          pop: true
+        - match: '(?=[a-zA-Z_]\w*)'
+          push:
+            - meta_content_scope: storage.modifier.variable.c
+            - match: (?!\w)
+              pop: true
+            - include: strong_constants
+            - include: weak_constants
+    - match: ^\s*(#\s*(el)?if)
+      captures:
+        1: entity.other.macro.conditional.c
+      push:
+        - meta_scope: meta.other.macro.conditional.c
+        - match: (?<!\\)\n
+          pop: true
+        - include: macro_keyword
+        - include: strong_constants
+        - include: weak_constants
+        - include: main
+    - match: '[a-zA-Z_]\w*\s*,?\s*(##)'
+      captures:
+        1: keyword.operator.macro.concatanate.c
+      push:
+        - meta_scope: string.interpolated.macro.concatanate.c
+        - match: '\s*[a-zA-Z_]\w*(?!\s*,?\s*(##))'
+          pop: true
+        - match: '\s*[a-zA-Z_]\w*\s*,?\s*(##)'
+          captures:
+            1: keyword.operator.macro.concatanate.c
+    - match: '(?<!^)\s*(#)\s*[a-zA-Z_]\w*'
+      scope: string.interpolated.macro.stringify.c
+      captures:
+        1: keyword.operator.macro.stringify.c
+  string_patterns:
+    - include: constant_placeholder
+    - include: escaped_characters
+    - include: escaped_unicode_characters
+  string_quoted:
+    - match: '(\b[LUu])?''(\?\?[=/()''<>!-])'''
+      scope: string.quoted.single.trigraph.c
+      captures:
+        1: storage.type.string.quoted.single.prefix.c
+        2: constant.character.escaped.trigraph_sequences.c
+    - match: '(\b[LUu])?''(\\(x\h+|[0-7]([0-7][0-7]?)?|\n|"|\''|\?|a|b|f|n|r|t|v|\\|0))'''
+      scope: string.quoted.single.escaped.c
+      captures:
+        1: storage.type.string.quoted.single.prefix.c
+        2: constant.character.escaped.special.c
+    - match: '(\b[LUu])?''(\\(u\h{4}|U\h{8}))'''
+      scope: string.quoted.single.hexadecimal.c
+      captures:
+        1: storage.type.string.quoted.single.prefix.c
+        2: constant.character.escaped.c
+    - match: '(\b[LUu])?''(\\|''|\n)'''
+      scope: string.quoted.single.illegal.c
+      captures:
+        1: storage.type.string.quoted.single.prefix.c
+        2: invalid.illegal.string.quoted.single.c
+    - match: '(\b[LUu])?''.(.*?)'''
+      scope: string.quoted.single.regular.c
+      captures:
+        1: storage.type.string.quoted.single.prefix.c
+        2: invalid.illegal.string.quoted.more.c
+    - match: '(\b[LU]|u8?)?"'
+      captures:
+        1: storage.type.string.quoted.single.prefix.c
+      push:
+        - meta_scope: string.quoted.double.c
+        - match: '"|(\n)'
+          captures:
+            1: invalid.illegal.unclosed_string.cython
+          pop: true
+        - include: trigraph_sequences
+        - include: string_patterns
+        - match: (\\|"|\n)
+          scope: invalid.illegal.string.quoted.single.c
+  strong_constants:
+    - match: \.\.\.
+      scope: constant.other.ellipsis.c
+    - match: \b(NULL|EOF|EXIT_(FAILURE|SUCCESS)|true|false|std(in|out|err))\b
+      scope: constant.language.word_like.c
+  trigraph_sequences:
+    - match: '\?\?[=/()''<>!-]'
+      scope: constant.character.escaped.trigraph_sequences.c
+  weak_constants:
+    - match: \b__((LIN|FIL|DAT|TIM)E|VA_ARGS|func|STDC(_(HOSTED|VERSION|ISO_10646|MB_MIGHT_NEQ_WC|UTF_(16|32)|ANALYZABLE|IEC_559(_COMPLEX_)?|(WANT_)?LIB_EXT1|NO_(ATOMICS|COMPLEX|THREADS|VLA)))?)__\b
+      scope: support.variable.macro.dunder.c
+    - match: \b(NDEBUG|CHAR_BIT|CLOCKS_PER_SEC|(S?CHAR|SHRT|INT|L?LONG)_(MAX|MIN)|(U(CHAR|SHRT|INT|L?LONG)|MB_LEN)_MAX|FLT_(RADIX|ROUNDS|EVAL_METHOD)|DECIMAL_DIG|(FLT|L?DBL)_(((MANT|DECIMAL)_)?DIG|(MIN|MAX)((_(10_)?EXP))?|EPSILON|TRUE_MIN|HAS_SUBNORM)|FP_ILOGB(0|NAN)|FE_((OVER|UNDER)FLOW|IN(EXACT|VALID)|ALL_EXCEPT|DIVBYZERO|(UP|DOWN)WARD|TO(NEAREST|WARDZERO)|DFL_ENV)|LC_(ALL|COLLATE|CTYPE|MONETARY|NUMERIC|TIME)|BUFSIZ|(TMP|F(OPEN|ILENAME))_MAX|_IO(F|L|N)BF|SEEK_(CUR|END|SET)|L_tmpnam|SIG(ABRT|FPE|ILL|INT|SEGV|TERM|_(DFL|IGN|ERR))|ONCE_FLAG_INIT|TSS_DTOR_ITERATIONS)\b
+      scope: support.variable.macro.constant.c

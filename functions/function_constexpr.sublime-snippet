@@ -4,6 +4,6 @@
 {
 	${0:/* TODO: implementation required */}
 }]]></content>
-	<tabTrigger>funcexpr_</tabTrigger>
+	<tabTrigger>constexprfun_</tabTrigger>
 	<scope>source.c++</scope>
 </snippet>

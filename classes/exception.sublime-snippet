@@ -7,6 +7,6 @@ public:
 private:
 	${4/* data */}
 };]]></content>
-	<tabTrigger>exc_</tabTrigger>
+	<tabTrigger>declexception_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

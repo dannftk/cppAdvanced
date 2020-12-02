@@ -4,6 +4,6 @@
 {
 	${2:/* TODO implement the loop */}
 }]]></content>
-	<tabTrigger>wl_</tabTrigger>
+	<tabTrigger>while_</tabTrigger>
 	<scope>source.c, source.objc, source.c++, source.objc++</scope>
 </snippet>

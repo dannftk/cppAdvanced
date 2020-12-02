@@ -4,6 +4,6 @@
 {
 	${0:/* TODO: implementation required */}
 }]]></content>
-	<tabTrigger>methv_</tabTrigger>
+	<tabTrigger>virtmeth_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

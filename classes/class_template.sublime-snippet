@@ -9,6 +9,6 @@ public:
 private:
 	${6:/* data */}
 };]]></content>
-	<tabTrigger>clt_</tabTrigger>
+	<tabTrigger>decltempclass_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

@@ -8,6 +8,6 @@ public:
 private:
 	${5:/* data */}
 };]]></content>
-	<tabTrigger>cl_</tabTrigger>
+	<tabTrigger>declclass_</tabTrigger>
 	<scope>source.c++, source.objc++</scope>
 </snippet>

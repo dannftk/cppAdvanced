@@ -4,6 +4,6 @@
 {
 	$0
 } while (${2:/* condition */});]]></content>
-	<tabTrigger>dowl_</tabTrigger>
+	<tabTrigger>dowhile_</tabTrigger>
 	<scope>source.c, source.objc, source.c++, source.objc++</scope>
 </snippet>

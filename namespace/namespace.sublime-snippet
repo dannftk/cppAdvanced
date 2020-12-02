@@ -5,6 +5,6 @@
 $0
 } // namespace $1
 ]]></content>
-    <tabTrigger>nsp_</tabTrigger>
+    <tabTrigger>namespace_</tabTrigger>
     <scope>source.c++, source.objc++</scope>
 </snippet>
