@@ -8,6 +8,17 @@ first_line_match: '\b(-[*]-)(Mode:)? C \1\b'
 scope: source.c
 contexts:
   main:
+    - match: ^\s*#\s*(define|elif|else|if|ifdef|ifndef|line|pragma|undef)\b
+      captures:
+        1: keyword.control.import.c
+      push:
+        - meta_scope: meta.preprocessor.c
+        - match: (?=(?://|/\*))|$
+          captures:
+            1: keyword.control.import.c
+          pop: true
+        - match: (?>\\\s*\n)
+          scope: punctuation.separator.continuation.c
     - match: //
       push:
         - meta_scope: comment.line.double_slash.c
@@ -20,6 +31,75 @@ contexts:
         - meta_scope: comment.block.slash_star.c
         - match: \*/
           pop: true
+    - match: |-
+        (?x)
+            ^\s*\#\s*(define)\s+             # define
+            ((?:[a-zA-Z_][a-zA-Z0-9_]*))  # macro name
+            (?:                              # and optionally:
+                (\()                         # an open parenthesis
+                    (
+                        \s* [a-zA-Z_][a-zA-Z0-9_]* \s*       # first argument
+                        (?:(,) \s* [a-zA-Z_][a-zA-Z0-9_]* \s*)*  # additional arguments
+                        (?:\.\.\.)?          # varargs ellipsis?
+                    )
+                (\))                         # a close parenthesis
+            )?
+      captures:
+        1: keyword.control.import.define.c
+        2: entity.name.function.preprocessor.c
+        4: variable.parameter.preprocessor.c
+        5: punctuation.definition.parameters.c
+        6: punctuation.separator.parameters.c
+        8: punctuation.definition.parameters.c
+      push:
+        - meta_scope: meta.preprocessor.macro.c
+        - match: (?=(?://|/\*))|$
+          pop: true
+        - match: (?>\\\s*\n)
+          scope: punctuation.separator.continuation.c
+        - include: $top_level_main
+        - match: (\w+)
+          scope: ""
+    - match: ^\s*#\s*(error|warning)\b
+      captures:
+        1: keyword.control.import.error.c
+      push:
+        - meta_scope: meta.preprocessor.diagnostic.c
+        - match: $
+          captures:
+            1: keyword.control.import.error.c
+          pop: true
+        - match: (?>\\\s*\n)
+          scope: punctuation.separator.continuation.c
+    - match: ^\s*#\s*(include)\b\s+
+      captures:
+        1: keyword.control.import.include.c
+      push:
+        - meta_scope: meta.preprocessor.c.include
+        - match: (?=(?://|/\*))|$
+          captures:
+            1: keyword.control.import.include.c
+          pop: true
+        - match: (?>\\\s*\n)
+          scope: punctuation.separator.continuation.c
+        - match: '"'
+          captures:
+            0: punctuation.definition.string.begin.c
+          push:
+            - meta_scope: string.quoted.double.include.c
+            - match: '"'
+              captures:
+                0: punctuation.definition.string.end.c
+              pop: true
+        - match: <
+          captures:
+            0: punctuation.definition.string.begin.c
+          push:
+            - meta_scope: string.quoted.other.lt-gt.include.c
+            - match: ">"
+              captures:
+                0: punctuation.definition.string.end.c
+              pop: true
     - match: '(?<=\W|^)\.\d+([eE][+-]?\d+)?[fFlL]?\b'
       scope: constant.numeric.float_and_double_and_long_double.decimal.pointdigit.c
     - match: '(?<!\w)\d+\.(\d+([eE][+-]?\d+)?)?[fFlL]?(?=\W)'
@@ -91,14 +171,14 @@ contexts:
     - match: is(al(num|pha)|cntrl|x?digit|graph|(low|upp)er|p(rin|unc)t|space)|to((low|upp)er)
       scope: support.function.builtin.c
   builtin_types:
-    - match: '(((char|int|void|float|double|(b|_B)ool)\s+){2,}|(_Complex(_I)?|complex|_Imaginary(_I)|imaginary)+|((un)?signed\s+)+((float|(long\s+)?double|void|(b|_B)ool)(\s+char)?\s+)+)'
-      scope: invalid.illegal.support.type.c
-    - match: \b(void|(b|_B)ool|(float|(long\s+)?double)(\s+(_Complex(_I)?|complex|_Imaginary(_I)|imaginary))?|((un)?signed\s+)?(char|(short|long(\s+long)?)(\s+int)?|(int)?))\b
-      scope: support.type.c
+    - match: \b(break|case|continue|default|do|else|for|goto|if|return|switch|while)\b
+      scope: keyword.control.c
+    - match: \b(asm|bool|char|double|enum|float|int|long|short|signed|struct|typedef|union|unsigned|void|size_t|(b|_B)ool)\b
+      scope: storage.type.c
+    - match: \b(const|constexpr|extern|static|volatile|inline)\b
+      scope: storage.modifier.c
     - match: \b(FILE|va_list|lconv|once_flag|mtx_(plain|recursive|timed)|thrd_(success|nomem|timedout|busy|error)|(ptrdiff|r?size|wchar|fpos|l?l?div|char(16|32)|sig_atomic|clock|time|max_align|u?int((_(fast|least))?(8|16|32|64)|(max|ptr))|imaxdiv|fe(nv|xcept)|errno|cnd|thrd(_start)?|tss(_dtor)?|mtx)_t)\b
-      scope: storage.modifier.variable.type.special.c
-    - match: \b(struct|union|enum)\b
-      scope: support.type.member.c
+      scope: storage.type.c
   constant_placeholder:
     - match: '%(((ll?|t|h)?(d|i))|(ll?|z|j|h)?u|((\.\d*)?(l|L)?f)|[%csaeEoxXpngG])'
       scope: string.interpolated.placeholder.c
@@ -116,11 +196,169 @@ contexts:
   illegal_names:
     - match: \b(auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|inline|int|long|register|restrict|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|(_A|a)lign(as|of)|_Atomic|_Bool|_Generic|(_C|c)omplex(_I)?|(_I|i)maginary(_I)?|_Noreturn|((_S|s)tatic_)?assert|_Thread_local)\b
       scope: invalid.illegal_names.name.c
+  operator:
+    - match: \b(sizeof|alignof)\b
+      scope: keyword.operator.function.c
+  disabled:
+    - match: ^\s*#\s*if(n?def)?\b.*$
+      comment: eat nested preprocessor if(def)s
+      push:
+        - match: ^\s*#\s*endif\b.*$
+          pop: true
+        - include: disabled
   macro_keyword:
     - match: \bdefined\b
       scope: keyword.operator.macro.conditional.c
     - match: \b_Pragma\b
       scope: keyword.operator.macro.pragma.c
+  preprocessor-rule-disabled:
+    - match: ^\s*(#(if)\s+(0)\b).*
+      captures:
+        1: meta.preprocessor.c
+        2: keyword.control.import.if.c
+        3: constant.numeric.preprocessor.c
+      push:
+        - match: ^\s*(#\s*(endif)\b)
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.if.c
+            3: constant.numeric.preprocessor.c
+          pop: true
+        - match: ^\s*(#\s*(else)\b)
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.else.c
+          push:
+            - match: (?=^\s*#\s*endif\b.*$)
+              captures:
+                1: meta.preprocessor.c
+                2: keyword.control.import.else.c
+              pop: true
+            - include: $top_level_main
+        - match: ""
+          push:
+            - meta_scope: comment.block.preprocessor.if-branch
+            - match: (?=^\s*#\s*(else|endif)\b.*$)
+              pop: true
+            - include: disabled
+            - include: pragma-mark
+  preprocessor-rule-disabled-block:
+    - match: ^\s*(#(if)\s+(0)\b).*
+      captures:
+        1: meta.preprocessor.c
+        2: keyword.control.import.if.c
+        3: constant.numeric.preprocessor.c
+      push:
+        - match: ^\s*(#\s*(endif)\b)
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.if.c
+            3: constant.numeric.preprocessor.c
+          pop: true
+        - match: ^\s*(#\s*(else)\b)
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.else.c
+          push:
+            - match: (?=^\s*#\s*endif\b.*$)
+              captures:
+                1: meta.preprocessor.c
+                2: keyword.control.import.else.c
+              pop: true
+            - include: block_innards
+        - match: ""
+          push:
+            - meta_scope: comment.block.preprocessor.if-branch.in-block
+            - match: (?=^\s*#\s*(else|endif)\b.*$)
+              pop: true
+            - include: disabled
+            - include: pragma-mark
+  preprocessor-rule-enabled:
+    - match: ^\s*(#(if)\s+(0*1)\b)
+      captures:
+        1: meta.preprocessor.c
+        2: keyword.control.import.if.c
+        3: constant.numeric.preprocessor.c
+      push:
+        - match: ^\s*(#\s*(endif)\b)
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.if.c
+            3: constant.numeric.preprocessor.c
+          pop: true
+        - match: ^\s*(#\s*(else)\b).*
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.else.c
+          push:
+            - meta_content_scope: comment.block.preprocessor.else-branch
+            - match: (?=^\s*#\s*endif\b.*$)
+              captures:
+                1: meta.preprocessor.c
+                2: keyword.control.import.else.c
+              pop: true
+            - include: disabled
+            - include: pragma-mark
+        - match: ""
+          push:
+            - match: (?=^\s*#\s*(else|endif)\b.*$)
+              pop: true
+            - include: $top_level_main
+  preprocessor-rule-enabled-block:
+    - match: ^\s*(#(if)\s+(0*1)\b)
+      captures:
+        1: meta.preprocessor.c
+        2: keyword.control.import.if.c
+        3: constant.numeric.preprocessor.c
+      push:
+        - match: ^\s*(#\s*(endif)\b)
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.if.c
+            3: constant.numeric.preprocessor.c
+          pop: true
+        - match: ^\s*(#\s*(else)\b).*
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.else.c
+          push:
+            - meta_content_scope: comment.block.preprocessor.else-branch.in-block
+            - match: (?=^\s*#\s*endif\b.*$)
+              captures:
+                1: meta.preprocessor.c
+                2: keyword.control.import.else.c
+              pop: true
+            - include: disabled
+            - include: pragma-mark
+        - match: ""
+          push:
+            - match: (?=^\s*#\s*(else|endif)\b.*$)
+              pop: true
+            - include: block_innards
+  preprocessor-rule-other:
+    - match: ^\s*(#\s*(if(n?def)?)\b.*?(?:(?=(?://|/\*))|$))
+      captures:
+        1: meta.preprocessor.c
+        2: keyword.control.import.c
+      push:
+        - match: ^\s*(#\s*(endif)\b).*$
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.c
+          pop: true
+        - include: $top_level_main
+  preprocessor-rule-other-block:
+    - match: ^\s*(#\s*(if(n?def)?)\b.*?(?:(?=(?://|/\*))|$))
+      captures:
+        1: meta.preprocessor.c
+        2: keyword.control.import.c
+      push:
+        - match: ^\s*(#\s*(endif)\b).*$
+          captures:
+            1: meta.preprocessor.c
+            2: keyword.control.import.c
+          pop: true
+        - include: block_innards
   macros:
     - match: ^\s*(#)\s*((include\s+(<(.+)>|"(.+)"))|line|error|pragma|(un|ifn?)def|else|endif)
       scope: entity.other.macro.keywords.c
